@@ -1,4 +1,8 @@
 .idea
+.gigaide
 *.iml
+*.spec
 venv
+build
+dist
 __pycache__
