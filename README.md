@@ -1,0 +1,1 @@
+pyinstaller -F --noconsole --add-data ui/images:ui/images -n TorrServe main.py

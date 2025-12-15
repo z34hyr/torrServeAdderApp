@@ -1,4 +1,5 @@
 import os.path
+import sys
 
 from settings import DEFAULT_TORRENT_FILE_PATH, GRID_DEFAULT_PARAMS
 from torr_serve import TorrServe
@@ -6,6 +7,10 @@ from tkinter import (
     LabelFrame, Label, Button, filedialog as fd, Entry, StringVar, PhotoImage
 )
 
+if getattr(sys, 'frozen', False):
+    WD = sys._MEIPASS
+else:
+    WD = '.'
 
 class AddTorrentWidget:
     def __init__(self, master, torr: TorrServe, row: int, column: int):
@@ -25,7 +30,7 @@ class AddTorrentWidget:
         self.lframe.grid(row=row, column=column, **GRID_DEFAULT_PARAMS)
 
         # select .torrent button
-        self.open_img = PhotoImage(file='./ui/images/folder.png')
+        self.open_img = PhotoImage(file=os.path.join(WD, 'ui/images', 'folder.png'))
         self.select = Button(
             self.lframe,
             text='Выберите .torrent',
@@ -67,7 +72,7 @@ class AddTorrentWidget:
         # When the last Python reference to the image object is deleted,
         # the image data is deleted as well,
         # and Tk will display an empty box wherever the image was used.
-        self.img_send = PhotoImage(file='./ui/images/send2_32x32.png', master=self.lframe)
+        self.img_send = PhotoImage(file=os.path.join(WD, 'ui/images', 'send2_32x32.png') , master=self.lframe)
         self.add_torrent_button = Button(
             self.lframe,
             text='Добавить на сервер',
