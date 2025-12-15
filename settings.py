@@ -17,8 +17,12 @@ def get_default_path():
     platform = sys.platform
     if platform == 'linux':
         return getenv('HOME') + '/' + 'Downloads'
-    # elif platform == 'windows':
-    #     ...
+    elif (
+            platform in ('win32', 'win64') and
+            (drive_name := getenv('HOMEDRIVE')) and
+            (home_path := getenv('HOMEPATH'))
+    ):
+        return drive_name + home_path + '\\Downloads'
     else:
         return '.'
 DEFAULT_TORRENT_FILE_PATH = getenv('DEFAULT_TORRENT_FILE_PATH', get_default_path())
